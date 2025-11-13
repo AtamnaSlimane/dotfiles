@@ -13,6 +13,27 @@ return {
     end,
   },
 
+{
+  'code-biscuits/nvim-biscuits',
+  dependencies = { 'nvim-treesitter/nvim-treesitter' },
+  opts = {
+    default_config = {
+      max_length = 12,
+      min_distance = 5,
+      prefix_string = " 📎 ",
+    },
+    language_config = {
+      html = { prefix_string = " 🌐 " },
+      javascript = { prefix_string = " ✨ ", max_length = 80 },
+      python = { disabled = false },
+      -- other languages inherit default_config
+    },
+  },
+  config = function(_, opts)
+    -- just setup, no activate()
+    require('nvim-biscuits').setup(opts)
+  end,
+},
 
   -- DAP support
   { "mfussenegger/nvim-dap" },
