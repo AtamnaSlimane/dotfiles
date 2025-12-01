@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-	theme = "onedark",
+	theme = "solarized_osaka",
   transparency = true,  --
 	-- hl_override = {
 	-- 	Comment = { italic = true },
@@ -14,11 +14,36 @@ M.base46 = {
 	-- },
 }
 
+M.plugins = {
+  override = {
+    ["nvim-tree/nvim-tree.lua"] = false,  -- disables the plugin
+  },
+}
 -- M.nvdash = { load_on_startup = true }
 -- M.ui = {
 --       tabufline = {
 --          lazyload = false
 --      }
 -- }
-
+M.nvdash = {
+    load_on_startup = true,  -- load dashboard when Neovim starts
+    config = {
+        header = {
+        },
+        buttons = {
+            { "  Find File", "Telescope find_files" },
+            { "  Recent Files", "Telescope oldfiles" },
+            { "  Find Word",   "Telescope live_grep" },
+            { "  New File",    "ene | startinsert" },
+            { "  Load Session", "SessionLoad" },
+            { "  Quit",        "qa" },
+        },
+        footer = { "🚀 Happy Coding with Neovim!" },
+        options = {
+            cursor_column = 0.5,  -- center the dashboard horizontally
+            padding = { top = 2, bottom = 2 },
+        },
+    }
+}
 return M
+
