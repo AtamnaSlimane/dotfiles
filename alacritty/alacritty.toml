@@ -1,7 +1,7 @@
 # Alacritty Configuration - Beautiful Dark Theme
 
 [window]
-opacity = 0.75
+opacity = 0.80
 blur = true
 decorations = "None"
 padding = { x = 12, y = 12 }

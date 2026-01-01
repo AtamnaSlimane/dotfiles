@@ -12,8 +12,52 @@ return {
       require "configs.lspconfig"
     end,
   },
+{
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' }
+},
+{
+  "SmiteshP/nvim-navic",
+  dependencies = { "neovim/nvim-lspconfig" },
+  config = function()
+    require("nvim-navic").setup()
+  end,
+},
 
 
+{
+  'nvim-treesitter/nvim-treesitter-context',
+  dependencies = { 'nvim-treesitter/nvim-treesitter' },
+  config = function()
+    require('treesitter-context').setup({
+      enable = true,
+      max_lines = 2, -- 0 means no limit
+      min_window_height = 0,
+      line_numbers = true,
+      multiline_threshold = 20,
+      trim_scope = 'outer',
+      mode = 'cursor',
+      separator = nil,
+    })
+  end
+},
+
+["lukas-reineke/indent-blankline.nvim"] = {
+    config = function()
+        require("indent_blankline").setup {
+            char = "│",                       -- vertical line for indentation
+            show_trailing_blankline_indent = false,
+            show_current_context = true,       -- highlight the current block
+            -- removed: show_current_context_start (v3 removed this)
+            filetype_exclude = { "help", "NvimTree", "terminal" },
+            buftype_exclude = { "terminal", "nofile" },
+        }
+
+        -- Optional: colors for context and regular indent
+        vim.api.nvim_set_hl(0, "IndentBlanklineChar", { fg = "#3c3836", nocombine = true })
+        vim.api.nvim_set_hl(0, "IndentBlanklineContextChar", { fg = "#fabd2f", nocombine = true })
+    end,
+},
   -- DAP support
   { "mfussenegger/nvim-dap" },
 
@@ -67,7 +111,84 @@ return {
       }
     end,
   },
-
+-- {
+--   "yetone/avante.nvim",
+--   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+--   -- ⚠️ must add this setting! ! !
+--   build = vim.fn.has("win32") ~= 0
+--       and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+--       or "make",
+--   event = "VeryLazy",
+--   version = false, -- Never set this value to "*"! Never!
+--   ---@module 'avante'
+--   ---@type avante.Config
+--   opts = {
+--     -- add any opts here
+--     -- this file can contain specific instructions for your project
+--     instructions_file = "avante.md",
+--     -- for example
+--     provider = "openai",
+--     providers = {
+--     openai = {
+-- endpoint = "https://generativelanguage.googleapis.com/v1beta/",
+--         model = "gemini-2.5-flash",
+--         timeout = 60000, -- Timeout in milliseconds
+--           extra_request_body = {
+--             temperature = 0.75,
+--             max_tokens = 20480,
+--           },
+-- api_key = os.getenv("OPENAI_API_KEY")
+--       },
+--       moonshot = {
+--         endpoint = "https://api.moonshot.ai/v1",
+--         model = "kimi-k2-0711-preview",
+--         timeout = 30000, -- Timeout in milliseconds
+--         extra_request_body = {
+--           temperature = 0.75,
+--           max_tokens = 32768,
+--         },
+--       },
+--     },
+--   },
+--   dependencies = {
+--     "nvim-lua/plenary.nvim",
+--     "MunifTanjim/nui.nvim",
+--     --- The below dependencies are optional,
+--     "nvim-mini/mini.pick", -- for file_selector provider mini.pick
+--     "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+--     "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+--     "ibhagwan/fzf-lua", -- for file_selector provider fzf
+--     "stevearc/dressing.nvim", -- for input provider dressing
+--     "folke/snacks.nvim", -- for input provider snacks
+--     "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+--     "zbirenbaum/copilot.lua", -- for providers='copilot'
+--     {
+--       -- support for image pasting
+--       "HakonHarnes/img-clip.nvim",
+--       event = "VeryLazy",
+--       opts = {
+--         -- recommended settings
+--         default = {
+--           embed_image_as_base64 = false,
+--           prompt_for_file_name = false,
+--           drag_and_drop = {
+--             insert_mode = true,
+--           },
+--           -- required for Windows users
+--           use_absolute_path = true,
+--         },
+--       },
+--     },
+--     {
+--       -- Make sure to set this up properly if you have lazy=true
+--       'MeanderingProgrammer/render-markdown.nvim',
+--       opts = {
+--         file_types = { "markdown", "Avante" },
+--       },
+--       ft = { "markdown", "Avante" },
+--     },
+--   },
+-- },
   -- Dart syntax highlighting
   { "dart-lang/dart-vim-plugin" },
 }

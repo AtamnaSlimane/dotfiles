@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-	theme = "solarized_osaka",
+	theme = "tokyonight",
   transparency = true,  --
 	-- hl_override = {
 	-- 	Comment = { italic = true },
@@ -18,7 +18,11 @@ M.plugins = {
   override = {
     ["nvim-tree/nvim-tree.lua"] = false,  -- disables the plugin
   },
+  add = {
+    ["SmiteshP/nvim-navic"] = {},
+  }
 }
+
 -- M.nvdash = { load_on_startup = true }
 -- M.ui = {
 --       tabufline = {
@@ -46,4 +50,5 @@ M.nvdash = {
     }
 }
 return M
+
 

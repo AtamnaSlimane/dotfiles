@@ -10,9 +10,8 @@ if not vim.uv.fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
-
+vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
 local lazy_config = require "configs.lazy"
-
 -- load plugins
 require("lazy").setup({
   {
