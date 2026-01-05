@@ -20,7 +20,7 @@ local function on_attach(client, bufnr)
 end
 
 -- Enable your servers with the wrapped on_attach
-local servers = { "html", "cssls","clangd","pyright","jdtls","intelephense","gopls","css-lsp" }
+local servers = { "html", "cssls","clangd","pyright","jdtls","phpactor","gopls","css-lsp" }
 
 for _, lsp in ipairs(servers) do
   vim.lsp.enable(lsp, { on_attach = on_attach })
