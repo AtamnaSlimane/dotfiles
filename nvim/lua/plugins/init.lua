@@ -251,6 +251,55 @@ return {
       }
     end,
   },
+
+  {
+    "mfussenegger/nvim-jdtls",
+    ft = { "java" },
+    config = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "java",
+        callback = function()
+          local jdtls = require("jdtls")
+
+          local root_dir = require("jdtls.setup").find_root({
+            "settings.gradle",
+            "settings.gradle.kts",
+            "build.gradle",
+            "build.gradle.kts",
+            "pom.xml",
+            ".git",
+          })
+          if not root_dir then
+            return
+          end
+
+          local workspace = vim.fn.stdpath("data")
+              .. "/jdtls-workspace/"
+              .. vim.fn.fnamemodify(root_dir, ":p:h:t")
+
+          jdtls.start_or_attach({
+            cmd = { "jdtls" }, -- Mason
+            root_dir = root_dir,
+            init_options = {
+              workspace = workspace,
+            },
+            settings = {
+              java = {
+                configuration = {
+                  runtimes = {
+                    {
+                      name = "JavaSE-21",
+                      path = "/usr/lib/jvm/java-21-openjdk",
+                    },
+                  },
+                },
+              },
+            },
+          })
+        end,
+      })
+    end,
+  },
   -- {
   --   "yetone/avante.nvim",
   --   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`

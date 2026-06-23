@@ -1,7 +1,7 @@
 -- safely require navic
 local ok, navic = pcall(require, "nvim-navic")
 if not ok then
-  navic = nil  -- fallback if plugin not loaded yet
+  navic = nil -- fallback if plugin not loaded yet
 end
 
 local default_opts = require("nvchad.configs.lspconfig").defaults()
@@ -20,7 +20,7 @@ local function on_attach(client, bufnr)
 end
 
 -- Enable your servers with the wrapped on_attach
-local servers = { "html", "cssls","clangd","pyright","jdtls","phpactor","gopls","css-lsp" }
+local servers = { "html", "cssls", "clangd", "pyright", "jdtls", "phpactor", "gopls", "css-lsp", "ts_ls" }
 
 for _, lsp in ipairs(servers) do
   vim.lsp.enable(lsp, { on_attach = on_attach })
